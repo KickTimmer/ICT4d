@@ -1,15 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.utils import timezone
 from .models import Question
 
-class DetailView(generic.DetailView):
-    ...
-    def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
-        return Question.objects.filter(pub_date__lte=timezone.now())
+
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
